@@ -30,5 +30,5 @@ setTimeout(function () {
             console.log(error)
         }
     });
-}, 1000);
+}, 2000);
 

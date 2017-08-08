@@ -17,20 +17,19 @@ class App {
             let {url} = request;
             // 返回的字符串或buffer
             let body = '';
+            let headers = '';
             // url包含action的是ajax请求
             if (url.match('action')) {
-                body = apiServer(url);
-                response.writeHead(200, 'success', {
-                    'X-powered-by': 'Node.js',
+                body = JSON.stringify(apiServer(url));
+                headers = {
                     'content-type': 'application/json'
-                });
-                response.end(JSON.stringify(body))
+                };
             } else {
                 body = staticServer(url);
-                response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
-                response.end(body)
             }
-
+            let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
+            response.writeHead(200, 'success', finalHeaders);
+            response.end(body)
         }
     }
 }
