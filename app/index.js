@@ -15,13 +15,18 @@ class App {
             // 每个请求逻辑
             // 结构赋值
             let {url} = request;
+            // 返回的字符串或buffer
+            let body = '';
             // url包含action的是ajax请求
             if (url.match('action')) {
-                let body = apiServer(url);
-                response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
+                body = apiServer(url);
+                response.writeHead(200, 'success', {
+                    'X-powered-by': 'Node.js',
+                    'content-type': 'application/json'
+                });
                 response.end(JSON.stringify(body))
             } else {
-                let body = staticServer(url);
+                body = staticServer(url);
                 response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
                 response.end(body)
             }
