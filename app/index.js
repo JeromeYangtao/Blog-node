@@ -25,8 +25,11 @@ class App {
                     url = '/index.html'
                 }
                 let _path = getPath(url);
-                fs.readFile(_path, 'utf8', (error, data) => {
-                    response.end(data)
+                fs.readFile(_path, 'binary', (error, data) => {
+                    if (error) {
+                        data = 'NOT FOUND'
+                    }
+                    response.end(data, 'binary')
                 });
             };
             staticFunc(url)
