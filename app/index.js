@@ -13,7 +13,6 @@ class App {
         // let _package = require('../package.json');
         return (request, response) => {
             // 每个请求逻辑
-            // 结构赋值
             let {url} = request;
             // 返回的字符串或buffer
             let body = '';
@@ -24,12 +23,17 @@ class App {
                 headers = {
                     'content-type': 'application/json'
                 };
+                let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
+                response.writeHead(200, 'success', finalHeaders);
+                response.end(body)
             } else {
-                body = staticServer(url);
+                staticServer(url).then((body) => {
+                    let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
+                    response.writeHead(200, 'success', finalHeaders);
+                    response.end(body)
+                })
             }
-            let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
-            response.writeHead(200, 'success', finalHeaders);
-            response.end(body)
+
         }
     }
 }

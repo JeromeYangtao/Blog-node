@@ -6,20 +6,21 @@ let getPath = (url) => {
     return path.resolve(process.cwd(), 'public', `.${url}`);
 };
 let staticFunc = (url) => {
-    let map = {
-        '/': '/index.html',
-        '/about': '/about.html',
-        '/list': '/list.html'
-    };
-    url = map[url] || url;
-    let _path = getPath(url);
-    let body = '';
-    try {
-        body = fs.readFileSync(_path)
-    } catch (error) {
-        body = `NOT FOUND ${error.stack}`
-    }
-    return body
+    return new Promise((resolve, reject) => {
+        let map = {
+            '/': '/index.html',
+            '/about': '/about.html',
+            '/list': '/list.html'
+        };
+        url = map[url] || url;
+        let _path = getPath(url);
+        fs.readFile(_path, (error, data) => {
+            if (error) {
+                reject(`NOT FOUND${error.stack}`);
+            }
+            resolve(data);
+        });
+    })
 };
 
 module.exports = staticFunc;
