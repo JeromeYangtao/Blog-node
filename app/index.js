@@ -16,12 +16,15 @@ class App {
             // 结构赋值
             let {url} = request;
             // 静态资源使用绝对路径
-            const staticPrefix = path.resolve(process.cwd(), 'public');
+            // DRY原则
+            let getPath = (url) => {
+                return path.resolve(process.cwd(), 'public', `.${url}`);
+            };
             let staticFunc = (url) => {
                 if (url === '/') {
                     url = '/index.html'
                 }
-                let _path = path.resolve(staticPrefix, `.${url}`)
+                let _path = getPath(url);
                 fs.readFile(_path, 'utf8', (error, data) => {
                     response.end(data)
                 });
