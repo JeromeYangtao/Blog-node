@@ -1,6 +1,7 @@
 // 核心逻辑入口
-const fs = require('fs');
-const path = require('path');
+
+
+const staticServer = require('./static_server');
 
 class App {
     constructor() {
@@ -15,24 +16,8 @@ class App {
             // 每个请求逻辑
             // 结构赋值
             let {url} = request;
-            // 静态资源使用绝对路径
-            // DRY原则
-            let getPath = (url) => {
-                return path.resolve(process.cwd(), 'public', `.${url}`);
-            };
-            let staticFunc = (url) => {
-                if (url === '/') {
-                    url = '/index.html'
-                }
-                let _path = getPath(url);
-                fs.readFile(_path, 'binary', (error, data) => {
-                    if (error) {
-                        data = 'NOT FOUND'
-                    }
-                    response.end(data, 'binary')
-                });
-            };
-            staticFunc(url)
+            let body = staticServer(url);
+            response.end(body)
         }
     }
 }
