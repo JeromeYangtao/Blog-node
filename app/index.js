@@ -19,7 +19,7 @@ class App {
             if (url.match('action')) {
                 let body = apiServer(url);
                 response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
-                response.end(body)
+                response.end(JSON.stringify(body))
             } else {
                 let body = staticServer(url);
                 response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});

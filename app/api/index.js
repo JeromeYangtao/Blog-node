@@ -1,3 +1,3 @@
 module.exports = (url) => {
-    return 'ajax';
+    return ['1', '2', '3']
 };

@@ -2,9 +2,12 @@ setTimeout(function () {
     $.ajax({
         url: '/user.action',
         method: 'get',
-        success: function (data) {
-            $('#root').html(data);
-            console.log(data)
+        // 返回数组
+        success: function (arr) {
+            let liStr = JSON.parse(arr).map(function (ele) {
+                return '<li>' + ele + '</li>';
+            }).join('');
+            $('#root').html(liStr);
         },
         error: function (error) {
             console.log(error)
