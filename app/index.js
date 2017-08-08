@@ -1,5 +1,6 @@
 // 核心逻辑入口
 const staticServer = require('./static_server');
+const apiServer = require('./api');
 
 class App {
     constructor() {
@@ -14,8 +15,17 @@ class App {
             // 每个请求逻辑
             // 结构赋值
             let {url} = request;
-            let body = staticServer(url);
-            response.end(body)
+            // url包含action的是ajax请求
+            if (url.match('action')) {
+                let body = apiServer(url);
+                response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
+                response.end(body)
+            } else {
+                let body = staticServer(url);
+                response.writeHead(200, 'success', {'X-powered-by': 'Node.js'});
+                response.end(body)
+            }
+
         }
     }
 }

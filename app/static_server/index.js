@@ -11,11 +11,11 @@ let staticFunc = (url) => {
         '/about': '/about.html',
         '/list': '/list.html'
     };
-    url = map[url] || url
+    url = map[url] || url;
     let _path = getPath(url);
     let body = '';
     try {
-        body = fs.readFileSync(_path,)
+        body = fs.readFileSync(_path)
     } catch (error) {
         body = `NOT FOUND ${error.stack}`
     }
