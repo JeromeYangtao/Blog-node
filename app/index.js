@@ -1,6 +1,4 @@
 // 核心逻辑入口
-
-
 const staticServer = require('./static_server');
 
 class App {
