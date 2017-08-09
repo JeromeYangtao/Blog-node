@@ -19,13 +19,16 @@ class App {
             let headers = '';
             // url包含action的是ajax请求
             if (url.match('action')) {
-                body = JSON.stringify(apiServer(url));
-                headers = {
-                    'content-type': 'application/json'
-                };
-                let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
-                response.writeHead(200, 'success', finalHeaders);
-                response.end(body)
+                apiServer(url).then((val) => {
+                    body = JSON.stringify(val);
+                    headers = {
+                        'content-type': 'application/json'
+                    };
+                    let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
+                    response.writeHead(200, 'success', finalHeaders);
+                    response.end(body)
+                });
+
             } else {
                 staticServer(url).then((body) => {
                     let finalHeaders = Object.assign(headers, {'X-powered-by': 'Node.js'});
