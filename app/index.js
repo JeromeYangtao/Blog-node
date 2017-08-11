@@ -13,12 +13,11 @@ class App {
     // let _package = require('../package.json');
     return (request, response) => {
       // 每个请求逻辑
-      let {url} = request
       // 返回的字符串或buffer
-      apiServer(url).then((val) => {
+      apiServer(request).then((val) => {
         if (!val) {
           // API中找不到就算静态资源请求
-          return staticServer(url)
+          return staticServer(request)
         } else {
           return val
         }
