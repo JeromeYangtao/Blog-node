@@ -13,38 +13,31 @@ class App {
     //方便个人的初始化工作
     // let _package = require('../package.json');
     return (request, response) => {
-      request.context = {
-        body: '',
-        query: {},
-        method: 'GET'
+      let context = {
+        req: request,
+        reqCtx: {
+          body: '',//POST请求的数据
+          query: {},//处理客户端GET请求
+        },
+        res: response,
+        resCtx: {
+          headers: {},//response的返回报文
+          body: '',//返回给前端的内容区
+        }
       }
-      urlParser(request).then(() => {
-        return apiServer(request)
-        // 每个请求逻辑
-        // 返回的字符串或buffer
-      }).then((val) => {
-        if (!val) {
-          // API中找不到就算静态资源请求
-          return staticServer(request)
-        } else {
-          return val
-        }
-      }).then((val) => {
-        let base = {'X-powered-by': 'Node.js'}
-        let body = ''
-        if (val instanceof Buffer) {
-          // 静态资源匹配返回Buffer
-          body = val
-        } else {
-          // API中找到返回的是array
-          body = JSON.stringify(val)
-          let finalHeaders = Object.assign(base, {
-            'content-type': 'application/json'
-          })
-          response.writeHead(200, 'success', finalHeaders)
-        }
-        response.end(body)
-      })
+      urlParser(context)
+        .then(() => {
+          return apiServer(context)
+        })
+        .then(() => {
+          return staticServer(context)
+        })
+        .then(() => {
+          let base = {'X-powered-by': 'Node.js'}
+          let {body} = context.resCtx
+          response.writeHead(200, 'success', base)
+          response.end(body)
+        })
     }
   }
 }

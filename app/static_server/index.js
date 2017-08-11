@@ -6,22 +6,29 @@ const path = require('path')
 let getPath = (url) => {
   return path.resolve(process.cwd(), 'public', `.${url}`)
 }
-let staticFunc = (request) => {
-  let {url} = request
+let staticFunc = (ctx) => {
+  let {url} = ctx.req
+  let {resCtx} = ctx
   return new Promise((resolve, reject) => {
-    let map = {
-      '/': '/index.html',
-      '/about': '/about.html',
-      '/list': '/list.html'
-    }
-    url = map[url] || url
-    let _path = getPath(url)
-    fs.readFile(_path, (error, data) => {
-      if (error) {
-        reject(`NOT FOUND${error.stack}`)
+    if (!url.match('action')) {
+      let map = {
+        '/': '/index.html',
+        '/about': '/about.html',
+        '/list': '/list.html'
       }
-      resolve(data)
-    })
+      url = map[url] || url
+      let _path = getPath(url)
+      fs.readFile(_path, (error, data) => {
+        if (error) {
+          resCtx.body = `NOT FOUND${error.stack}`
+          reject()
+        }
+        resCtx.body = data
+        resolve()
+      })
+    } else {
+      resolve()
+    }
   })
 }
 

@@ -1,21 +1,20 @@
 /*
  *url-parser
- * 处理客户端数据 (method query body)
+ * 处理客户端数据,POST请求时前端发送的数据 (method query body)
  */
-module.exports = (request) => {
-  let {method, url, context} = request
+
+module.exports = (ctx) => {
+  let {method} = ctx.req
+  let {reqCtx} = ctx
   return Promise.resolve({
     then: (resolve, reject) => {
-      context.method = method
-      //@TODO
-      context.query = {}
       if (method === 'POST') {
         //paused ===> flow
         let data = ''
-        request.on('data', (chunk) => {
+        ctx.req.on('data', (chunk) => {
           data += chunk
         }).on('end', () => {
-          context.body = JSON.parse(data)
+          reqCtx.body = JSON.parse(data)
           // 通知下一个流程
           resolve()
         })
