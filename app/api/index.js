@@ -1,5 +1,11 @@
 module.exports = (request) => {
-  let {url, method} = request
+  // request.context = {
+  //   body: '',
+  //   query: {},
+  //   method: 'GET'
+  // }
+
+  let {url, method, context} = request
   let apiMap = {
     '/list.action': ['吉他', '三只松鼠', 'mongodb'],
     '/user.action': ['Thomson', '男', '中国']
@@ -8,15 +14,9 @@ module.exports = (request) => {
     // 返回一个数组或undefined
     return Promise.resolve(apiMap[url])
   } else {
-    return new Promise((resolve, reject) => {
-      let data = ''
-      request.on('data', (chunk) => {
-        data += chunk
-      }).on('end', () => {
-
-        resolve(JSON.parse(data))
-      })
-    })
+    // 处理POST请求
+    let {body} = context
+    return Promise.resolve(body)
   }
 
 }

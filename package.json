@@ -1,0 +1,23 @@
+{
+  "name": "blog-node",
+  "version": "1.0.0",
+  "description": "use Node.js to create a Blog Website\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C personal Blok Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeromeYangtao/Blog-node.git"
+  },
+  "author": "Thomson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeromeYangtao/Blog-node/issues"
+  },
+  "homepage": "https://github.com/JeromeYangtao/Blog-node#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
