@@ -1,17 +1,34 @@
 // 核心逻辑入口
-const staticServer = require('./static_server')
-const apiServer = require('./api')
-const urlParser = require(('./url-parser'))
+const fs = require('fs')
+const path = require('path')
 
 class App {
   constructor () {
+    this.middlewareArr = []
+    //设计一个空的Promise
+    this.middlewareChain = Promise.resolve()
+  }
 
+  use (middleware) {
+    this.middlewareArr.push(middleware)
+  }
+
+  //创建Promise链条
+  composeMiddleware (context) {
+    let {middlewareArr} = this
+    //根据中间件数组 创建Promise链条
+    // iterator
+    for (let middleware of middlewareArr) {
+      this.middlewareChain = this.middlewareChain.then(() => {
+        return middleware(context)
+      })
+    }
+    return this.middlewareChain
   }
 
   initServer () {
     // 高阶函数
     //方便个人的初始化工作
-    // let _package = require('../package.json');
     return (request, response) => {
       let context = {
         req: request,
@@ -25,18 +42,20 @@ class App {
           body: '',//返回给前端的内容区
         }
       }
-      urlParser(context)
+
+      this.composeMiddleware(context)
         .then(() => {
-          return apiServer(context)
-        })
-        .then(() => {
-          return staticServer(context)
-        })
-        .then(() => {
+          // 函数体不变
           let base = {'X-powered-by': 'Node.js'}
-          let {body} = context.resCtx
-          response.writeHead(200, 'success', base)
+          let {body, headers} = context.resCtx
+          response.writeHead(200, 'success', Object.assign(headers, base))
+          body = body || 'hello'
           response.end(body)
+        })
+        .catch((error) => {
+          if (error) {
+            throw new Error('中间件')
+          }
         })
     }
   }

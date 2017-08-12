@@ -11,17 +11,21 @@ let staticFunc = (ctx) => {
   let {resCtx} = ctx
   return new Promise((resolve, reject) => {
     if (!url.match('action')) {
-      let map = {
-        '/': '/index.html',
-        '/about': '/about.html',
-        '/list': '/list.html'
+      // let map = {
+      //   '/': '/index.html',
+      //   '/about': '/about.html',
+      //   '/list': '/list.html'
+      // }
+      // url = map[url] || url
+      if (url === '/') {
+        url = '/index.html'
       }
-      url = map[url] || url
       let _path = getPath(url)
       fs.readFile(_path, (error, data) => {
         if (error) {
           resCtx.body = `NOT FOUND${error.stack}`
-          reject()
+          console.log(error)
+          //   reject()
         }
         resCtx.body = data
         resolve()

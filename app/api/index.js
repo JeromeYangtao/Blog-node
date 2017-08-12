@@ -17,10 +17,11 @@ module.exports = (ctx) => {
           let {body} = reqCtx
           resCtx.body = JSON.stringify(body)
         }
-        res.setHeader('Content-Type', 'application/json')
+        resCtx.headers = Object.assign(resCtx.headers, {
+          'Content-Type': 'application/json'
+        })
       }
       resolve()
     }
   })
-
 }

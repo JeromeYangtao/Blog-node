@@ -4,7 +4,7 @@
  */
 
 module.exports = (ctx) => {
-  let {method} = ctx.req
+  let {method, url} = ctx.req
   let {reqCtx} = ctx
   return Promise.resolve({
     then: (resolve, reject) => {
@@ -21,7 +21,6 @@ module.exports = (ctx) => {
       } else {
         resolve()
       }
-
     }
   })
 }

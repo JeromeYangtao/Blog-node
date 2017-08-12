@@ -27,11 +27,10 @@ setTimeout(function () {
     ]),
     // 返回数组
     success: function (arr) {
-      console.log(arr)
       let liStr = arr.map(function (ele) {
         return '<li>' + ele + '</li>'
       }).join('')
-      $('#root').html(liStr)
+      $('#shop').html(liStr)
     }
     ,
     error: function (error) {
