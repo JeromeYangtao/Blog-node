@@ -38,8 +38,11 @@ class App {
         },
         res: response,
         resCtx: {
+          statusCode: 200,//状态码
+          statusMessage: 'success',
           headers: {},//response的返回报文
           body: '',//返回给前端的内容区
+
         }
       }
 
@@ -47,9 +50,8 @@ class App {
         .then(() => {
           // 函数体不变
           let base = {'X-powered-by': 'Node.js'}
-          let {body, headers} = context.resCtx
-          response.writeHead(200, 'success', Object.assign(headers, base))
-          body = body || 'hello'
+          let {body, headers, statusCode, statusMessage} = context.resCtx
+          response.writeHead(statusCode, statusMessage, Object.assign(headers, base))
           response.end(body)
         })
         .catch((error) => {
