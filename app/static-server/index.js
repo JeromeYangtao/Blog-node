@@ -10,19 +10,13 @@ let staticFunc = (ctx) => {
   let {url} = ctx.req
   let {resCtx} = ctx
   return new Promise((resolve, reject) => {
-    if (!url.match('action')) {
-      // let map = {
-      //   '/': '/index.html',
-      //   '/about': '/about.html',
-      //   '/list': '/list.html'
-      // }
-      // url = map[url] || url
+    // 处理静态资源,CSS,JS,图像等，不包括HTML
+    if (!url.match('action') && url.match(/\./)) {
       let _path = getPath(url)
       fs.readFile(_path, (error, data) => {
         if (error) {
           resCtx.body = `NOT FOUND${error.stack}`
-          console.log(error)
-          //   reject()
+          resolve()
         }
         resCtx.body = data
         resolve()

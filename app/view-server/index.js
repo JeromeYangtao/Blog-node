@@ -7,6 +7,7 @@ module.exports = (ctx) => {
   let {url} = req
   return Promise.resolve({
     then: (resolve, reject) => {
+      // 处理HTML
       //映射表
       let urlMap = {
         '/': {
