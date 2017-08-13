@@ -17,9 +17,6 @@ let staticFunc = (ctx) => {
       //   '/list': '/list.html'
       // }
       // url = map[url] || url
-      if (url === '/') {
-        url = '/index.html'
-      }
       let _path = getPath(url)
       fs.readFile(_path, (error, data) => {
         if (error) {

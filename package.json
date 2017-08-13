@@ -19,5 +19,8 @@
   "homepage": "https://github.com/JeromeYangtao/Blog-node#readme",
   "devDependencies": {
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7"
   }
 }
