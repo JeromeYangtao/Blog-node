@@ -1,6 +1,7 @@
 const ejs = require('ejs')
 const fs = require('fs')
 const path = require('path')
+const mime = require('mime')
 
 module.exports = (ctx) => {
   let {req, resCtx} = ctx
@@ -26,10 +27,14 @@ module.exports = (ctx) => {
         let render = ejs.compile(tempStr, {
           compileDebug: true
         })
+
         resCtx.body = render({
             hello: 'world'
           }
         )
+        resCtx.headers = Object.assign(resCtx.headers, {
+          'Content-Type': mime.lookup(htmlPath)
+        })
         resolve()
       } else {
         resolve()
