@@ -14,3 +14,12 @@
 // |
 // |-- url非法: 重定向到首页
 
+//映射表
+const urlrewriteMap = {
+  '/': 'index',
+  '/list': 'list',
+  '/write': 'write',
+  '/about': 'about'
+}
+module.exports = urlrewriteMap
+

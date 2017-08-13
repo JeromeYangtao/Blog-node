@@ -2,6 +2,7 @@ const ejs = require('ejs')
 const fs = require('fs')
 const path = require('path')
 const mime = require('mime')
+const urlRewriteMap = require('./urlRewrite')
 
 module.exports = (ctx) => {
   let {req, resCtx} = ctx
@@ -9,20 +10,11 @@ module.exports = (ctx) => {
   return Promise.resolve({
     then: (resolve, reject) => {
       // 处理HTML
-      //映射表
-      let urlMap = {
-        '/': {
-          viewName: 'index.html'
-        },
-        '/about': {
-          viewName: 'about.html'
-        }
-      }
-      let viewPath = path.resolve(process.cwd(), 'public')
-      //ejs动态渲染
-      if (urlMap[url]) {
-        let {viewName} = urlMap[url]
-        let htmlPath = path.resolve(viewPath, viewName)
+      let ejsName = urlRewriteMap[url]
+      const viewPath = path.resolve(__dirname, 'ejs')
+      if (ejsName) {
+        //ejs动态渲染
+        let htmlPath = path.resolve(viewPath, `${ejsName}.ejs`)
         let tempStr = fs.readFileSync(htmlPath, 'utf8')
         let render = ejs.compile(tempStr, {
           compileDebug: true
@@ -33,13 +25,12 @@ module.exports = (ctx) => {
           }
         )
         resCtx.headers = Object.assign(resCtx.headers, {
-          'Content-Type': mime.lookup(htmlPath)
+          'Content-Type': 'text/html'
         })
         resolve()
       } else {
         resolve()
       }
-
     }
   })
 }
