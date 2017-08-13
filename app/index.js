@@ -54,11 +54,11 @@ class App {
           response.writeHead(statusCode, statusMessage, Object.assign(headers, base))
           response.end(body)
         })
-        .catch((error) => {
-          if (error) {
-            throw new Error('中间件')
-          }
-        })
+      // .catch((error) => {
+      //   if (error) {
+      //     throw new Error('中间件')
+      //   }
+      // })
     }
   }
 }
