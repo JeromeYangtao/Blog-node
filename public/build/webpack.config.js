@@ -20,10 +20,11 @@ module.exports = {
     // list: './js/list/index.js',
     // about: './js/about/index.js',
     common: [
-      'react',
-      'react-dom',
+      // 'react',
+      // 'react-dom',
       'reset',   //引用别名，resolve
-      'common_lib'
+      'common_lib',
+      './js/index.js'
     ]
   },
   // debug: true,

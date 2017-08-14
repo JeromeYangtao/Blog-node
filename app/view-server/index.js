@@ -24,7 +24,7 @@ module.exports = (ctx) => {
             filename: layoutPath   //相对路径的基准
           })
           let html = render({
-              templateName: 'list'
+              templateName: ejsName
             }
           )
           resCtx.body = html
