@@ -33,6 +33,7 @@ class App {
       let context = {
         req: request,
         reqCtx: {
+          hasUser: false,//标识用户
           body: '',//POST请求的数据
           query: {},//处理客户端GET请求
         },
