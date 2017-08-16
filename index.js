@@ -7,13 +7,11 @@ const PORT = 7000
 const App = require('./app')
 const server = new App()
 //中间件
-const cookieParser = require('./app/cookie-parser')
 const urlParser = require('./app/url-parser')
 const apiServer = require('./app/api')
 const staticServer = require('./app/static-server')
 const viewServer = require('./app/view-server')
 
-server.use(cookieParser)
 server.use(urlParser)
 server.use(apiServer)
 server.use(staticServer)
