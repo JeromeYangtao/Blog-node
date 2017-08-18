@@ -12,3 +12,9 @@ exports.blogSchema = new Schema({
     }
   }
 })
+
+// 创建博客的数据存储 schema
+exports.categorySchema = new Schema({
+  category: String,
+  _id: String
+})
