@@ -34,7 +34,9 @@ class App {
         req: request,
         reqCtx: {
           body: '',//POST请求的数据
-          query: {},//处理客户端GET请求
+          query: {},//查询字符串
+          pathname: '',//路径
+          method: ''
         },
         res: response,
         resCtx: {
@@ -42,7 +44,7 @@ class App {
           statusMessage: 'success',
           headers: {},//response的返回报文
           body: '',//返回给前端的内容区
-
+          hasUser: false,//标识用户
         }
       }
 

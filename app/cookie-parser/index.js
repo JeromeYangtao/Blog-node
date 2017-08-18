@@ -5,18 +5,24 @@ const cookie_parser = require('cookie')
 const whiteNameList = ['/name_Thomson']
 module.exports = (ctx) => {
   let {cookie} = ctx.req.headers
-  let {res} = ctx
-  let {url} = ctx.req
-  // console.log(cookieObj)
+  let {res, resCtx} = ctx
+  let {pathname} = ctx.reqCtx
   return Promise.resolve({
     then: (resolve, reject) => {
+      let cookieStr = time => `auth=true;Max-Age=${time}`
       // cookie解析成对象
-      if (cookie) {
-        let cookieObj = cookie_parser.parse(cookie)
+      let cookieObj = cookie_parser.parse(cookie || '')
+      if (cookieObj['auth']) {
+        resCtx.hasUser = true
+        res.setHeader('Set-Cookie', cookieStr(3600))
       }
-      let cookieStr = 'auth=true;Max-Age=10000000000000000'
-      if (whiteNameList.indexOf(url)) {
-        res.setHeader('Set-Cookie', cookieStr)
+
+      if (whiteNameList.indexOf(pathname) > -1) {
+        res.setHeader('Set-Cookie', cookieStr(3600))
+      }
+      //登出
+      if (pathname === '/logout') {
+        res.setHeader('Set-Cookie', cookieStr(0))
       }
       resolve()
     }

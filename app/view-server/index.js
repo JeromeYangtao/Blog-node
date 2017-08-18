@@ -5,15 +5,15 @@ const mime = require('mime')
 const urlRewriteMap = require('./urlRewrite')
 
 module.exports = (ctx) => {
-  let {req, resCtx} = ctx
-  let {url} = req
+  let {reqCtx, resCtx} = ctx
+  let {pathname} = reqCtx
   return Promise.resolve({
     then: (resolve, reject) => {
-      if (url.match('action') || url.match(/\./)) {
+      if (pathname.match('action') || pathname.match(/\./)) {
         resolve()
       } else {
         // 处理HTML
-        let ejsName = urlRewriteMap[url]
+        let ejsName = urlRewriteMap[pathname]
         const viewPath = path.resolve(__dirname, 'ejs')
         if (ejsName) {
           //ejs动态渲染
@@ -24,7 +24,8 @@ module.exports = (ctx) => {
             filename: layoutPath   //相对路径的基准
           })
           let html = render({
-              templateName: ejsName
+              templateName: ejsName,
+              hasUser: resCtx.hasUser
             }
           )
           resCtx.body = html

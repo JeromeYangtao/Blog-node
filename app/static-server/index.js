@@ -4,16 +4,16 @@ const mime = require('mime')
 
 // 静态资源使用绝对路径
 // DRY原则
-let getPath = (url) => {
-  return path.resolve(process.cwd(), 'public', `.${url}`)
+let getPath = (pathname) => {
+  return path.resolve(process.cwd(), 'public', `.${pathname}`)
 }
 let staticFunc = (ctx) => {
-  let {url} = ctx.req
+  let {pathname} = ctx.reqCtx
   let {resCtx} = ctx
   return new Promise((resolve, reject) => {
     // 处理静态资源,CSS,JS,图像等，不包括HTML
-    if (!url.match('action') && url.match(/\./)) {
-      let _path = getPath(url)
+    if (!pathname.match('action') && pathname.match(/\./)) {
+      let _path = getPath(pathname)
       resCtx.headers = Object.assign(resCtx.headers, {
         'Content-Type': mime.lookup(_path)
       })
