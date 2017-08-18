@@ -7,10 +7,11 @@ module.exports = (ctx) => {
   let {method, url} = ctx.req
   let {reqCtx} = ctx
   // let {pathname, query} = reqCtx
+  method = method.toLowerCase()
   Object.assign(reqCtx, Url.parse(url, true), {method})
   return Promise.resolve({
     then: (resolve, reject) => {
-      if (method === 'POST') {
+      if (method === 'post') {
         //paused ===> flow
         //中文由3个buffer传输，字符串可能乱码
         let data = []
