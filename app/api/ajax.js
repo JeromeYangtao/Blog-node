@@ -1,4 +1,4 @@
-//处理ajax请求
+//使用mongoose处理ajax请求
 let Router = require('./router')
 //获取分类列表
 Router.get('/categoryList.action', ctx => {})
