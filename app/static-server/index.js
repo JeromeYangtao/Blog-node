@@ -17,6 +17,7 @@ let staticFunc = (ctx) => {
       resCtx.headers = Object.assign(resCtx.headers, {
         'Content-Type': mime.lookup(_path)
       })
+      console.log(_path)
       fs.readFile(_path, (error, data) => {
         if (error) {
           resCtx.body = `NOT FOUND${error.stack}`
