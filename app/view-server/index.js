@@ -17,18 +17,19 @@ module.exports = (ctx) => {
         const viewPath = path.resolve(__dirname, 'ejs')
         if (ejsName) {
           //ejs动态渲染
-          let layoutPath = path.resolve(viewPath, 'layout.ejs')
-          let layoutHtml = fs.readFileSync(layoutPath, 'utf8')
-          let render = ejs.compile(layoutHtml, {
-            compileDebug: true,
-            filename: layoutPath   //相对路径的基准
-          })
-          let html = render({
-              templateName: ejsName,
-              hasUser: resCtx.hasUser
-            }
-          )
-          resCtx.body = html
+          // let layoutPath = path.resolve(viewPath, 'layout.ejs')
+          // let layoutHtml = fs.readFileSync(layoutPath, 'utf8')
+          // let render = ejs.compile(layoutHtml, {
+          //   compileDebug: true,
+          //   filename: layoutPath   //相对路径的基准
+          // })
+          // let html = render({
+          //     templateName: ejsName,
+          //     hasUser: resCtx.hasUser
+          //   }
+          // )
+          let htmlPath = path.resolve(process.cwd(), 'public/dist/', ejsName)
+          resCtx.body = fs.readFileSync(htmlPath)
           resCtx.headers = Object.assign(resCtx.headers, {
             'Content-Type': 'text/html'
           })

@@ -16,10 +16,10 @@
 
 //映射表
 const urlRewriteMap = {
-  '/': 'index',
-  '/list': 'list',
-  '/write': 'write',
-  '/about': 'about'
+  '/': 'index.html',
+  // '/list': 'list',
+  // '/write': 'write',
+  // '/about': 'about'
 }
 module.exports = urlRewriteMap
 
