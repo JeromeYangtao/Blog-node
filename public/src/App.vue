@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <ul>
-      <li>
-        <router-link to="/">首页</router-link>
-      </li>
-      <li>
-        <router-link to="/list">目录</router-link>
-      </li>
-      <li>
-        <router-link to="/about">关于作者</router-link>
-      </li>
-      <li>
-        <router-link to="/write">写博客</router-link>
-      </li>
-    </ul>
+    <nav>
+      <ul>
+        <li>
+          <router-link to="/">首页</router-link>
+        </li>
+        <li>
+          <router-link to="/list">目录</router-link>
+        </li>
+        <li>
+          <router-link to="/about">关于作者</router-link>
+        </li>
+        <li>
+          <router-link to="/write">写博客</router-link>
+        </li>
+      </ul>
+    </nav>
+
     <!--路由部分-->
     <router-view></router-view>
 
@@ -29,12 +31,15 @@
 </template>
 
 <script>
+  import './assets/reset.css'
+  import 'normalize.css'
+
   export default {
     name: 'app'
   }
 </script>
 
-<style>
+<style scoped lang="scss">
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -42,5 +47,10 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+
+    nav > ul {
+
+    }
+
   }
 </style>
