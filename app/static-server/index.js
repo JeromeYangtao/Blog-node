@@ -5,7 +5,7 @@ const mime = require('mime')
 // 静态资源使用绝对路径
 // DRY原则
 let getPath = (pathname) => {
-  return path.resolve(process.cwd(), 'public', `.${pathname}`)
+  return path.resolve(process.cwd(), 'public/dist', `.${pathname}`)
 }
 let staticFunc = (ctx) => {
   let {pathname} = ctx.reqCtx

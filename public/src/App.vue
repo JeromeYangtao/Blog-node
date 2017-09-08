@@ -1,9 +1,29 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <ul>
+      <li>
+        <router-link to="/">首页</router-link>
+      </li>
+      <li>
+        <router-link to="/list">目录</router-link>
+      </li>
+      <li>
+        <router-link to="/about">关于作者</router-link>
+      </li>
+      <li>
+        <router-link to="/write">写博客</router-link>
+      </li>
+    </ul>
     <!--路由部分-->
     <router-view></router-view>
+
+
+    登录页面
     <el-button type="primary">主要按钮</el-button>
+
+
+    管理页面
     <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button>
   </div>
 </template>
