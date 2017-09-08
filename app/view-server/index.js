@@ -14,7 +14,6 @@ module.exports = (ctx) => {
       } else {
         // 处理HTML
         let ejsName = urlRewriteMap[pathname]
-        const viewPath = path.resolve(__dirname, 'ejs')
         if (ejsName) {
           //ejs动态渲染
           // let layoutPath = path.resolve(viewPath, 'layout.ejs')
