@@ -4,7 +4,10 @@ const {blogSchema, categorySchema} = require('./schema')
 const BlogModel = mongoose.model('Blog', blogSchema)
 const CategoryModel = mongoose.model('Category', categorySchema)
 const $_saveBlog = blog => {
-  return BlogModel(blog).save().exec().then(_blog => {
+  console.log(`blog:${blog}`)
+  return BlogModel.findOneAndUpdate({
+    title: blog.title
+  }).then(_blog => {
     return {
       status: 1,
       data: _blog
@@ -12,14 +15,31 @@ const $_saveBlog = blog => {
   })
 }
 const $_saveCategory = category => {
-  return CategoryModel(category).save().exec().then(_category => {
+  return CategoryModel.findOneAndUpdate({
+    category: category.name
+  }, category, {
+    //update and insert
+    upsert: true,
+    //无论如何都返回数据
+    new: true
+  }).then(_category => {
     return {
       status: 1,
       data: _category
     }
   })
 }
+const $_getCategoryList = query => {
+  //collection + document的样子
+  return CategoryModel.find(query).exec().then(categoryList => {
+    return {
+      status: 1,
+      data: categoryList || []
+    }
+  })
+}
 module.exports = {
   $_saveBlog,
-  $_saveCategory
+  $_saveCategory,
+  $_getCategoryList
 }

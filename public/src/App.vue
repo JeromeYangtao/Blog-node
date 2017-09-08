@@ -34,7 +34,6 @@
 
 
     <footer>
-
       <p class="tm-copyright-text">Copyright &copy; 2017 Thomson | 杨涛</p>
     </footer>
 
@@ -87,6 +86,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 3rem;
     }
 
   }

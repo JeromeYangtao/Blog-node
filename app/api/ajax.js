@@ -1,8 +1,10 @@
 //使用mongoose处理ajax请求
 let Router = require('./router')
-let {$_saveBlog, $_saveCategory} = require('./mongo')
+let {$_saveBlog, $_saveCategory, $_getCategoryList} = require('./mongo')
 //获取分类列表
-Router.get('/categoryList.action', ctx => {})
+Router.get('/categoryList.action', ctx => {
+  return $_getCategoryList(ctx.reqCtx.query)
+})
 // 增加分类
 Router.get('/category.action', ctx => {
   let category = ctx.reqCtx.query
