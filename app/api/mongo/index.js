@@ -4,9 +4,10 @@ const {blogSchema, categorySchema} = require('./schema')
 const BlogModel = mongoose.model('Blog', blogSchema)
 const CategoryModel = mongoose.model('Category', categorySchema)
 const $_saveBlog = blog => {
-  console.log(`blog:${blog}`)
   return BlogModel.findOneAndUpdate({
-    title: blog.title
+    title: blog.title,
+    content: blog.content,
+    category:blog.category
   }).then(_blog => {
     return {
       status: 1,
