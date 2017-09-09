@@ -23,7 +23,13 @@ const $_saveBlog = async (params) => {
     msg: '博客保存成功'
   }
 }
-
+const $_removeBlog = async condition => {
+  await  BlogModel.remove(condition)
+  return {
+    status: 1,
+    msg: '删除博客成功'
+  }
+}
 const $_getBlogList = async query => {
   let blogList = await BlogModel.find(query)
   return {
@@ -35,5 +41,6 @@ const $_getBlogList = async query => {
 
 module.exports = {
   $_saveBlog,
-  $_getBlogList
+  $_getBlogList,
+  $_removeBlog
 }

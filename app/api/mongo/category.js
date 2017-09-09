@@ -23,6 +23,13 @@ const $_saveCategory = async params => {
     msg: '博客类别保存成功'
   }
 }
+const $_removeCategory = async condition => {
+  await  CategoryModel.remove(condition)
+  return {
+    status: 1,
+    msg: '删除博客类别成功'
+  }
+}
 
 const $_getCategoryList = async query => {
   let result = await CategoryModel.find(query)
@@ -35,4 +42,5 @@ const $_getCategoryList = async query => {
 module.exports = {
   $_saveCategory,
   $_getCategoryList,
+  $_removeCategory
 }

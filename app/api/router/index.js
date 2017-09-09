@@ -3,7 +3,8 @@ class Router {
   constructor () {
     this.routerMap = {
       'get': {},
-      'post': {}
+      'post': {},
+      'delete': {}
     }
   }
 
@@ -17,10 +18,15 @@ class Router {
     postMap[pathname] = handler
   }
 
+  delete (pathname, handler) {
+    let deleteMap = this.routerMap.delete
+    deleteMap[pathname] = handler
+  }
+
   //对接request  response
   routes (ctx) {
     let {pathname, method} = ctx.reqCtx
-    if (method === 'get' || method === 'post') {
+    if (method === 'get' || method === 'post' || method === 'delete') {
       let handler = this.routerMap[method][pathname]
       if (handler) {
         return Promise.resolve(handler(ctx))
