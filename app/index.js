@@ -51,7 +51,7 @@ class App {
       this.composeMiddleware(context)
         .then(() => {
           // 函数体不变
-          //运行所以人访问，跨域
+          //允许所有人访问，跨域
           let base = {'X-powered-by': 'Node.js', 'Access-Control-Allow-Origin': '*'}
 
           let {body, headers, statusCode, statusMessage} = context.resCtx
