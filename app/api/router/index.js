@@ -5,7 +5,7 @@ class Router {
       'get': {},
       'post': {},
       'put': {},
-      'delete': {}
+      'delete': {},
     }
   }
 

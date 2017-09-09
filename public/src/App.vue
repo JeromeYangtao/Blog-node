@@ -10,7 +10,7 @@
         </li>
         <li>
           <router-link to="/list">
-            <el-button type="text">目录</el-button>
+            <el-button type="text">博客目录</el-button>
 
           </router-link>
         </li>
@@ -73,7 +73,7 @@
         }
       }
     }
-    .main{
+    .main {
       width: 80vw;
       text-align: center;
       border: 1px solid black;

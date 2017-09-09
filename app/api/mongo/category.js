@@ -12,7 +12,6 @@ const $_getCategoryList = async query => {
     msg: '获取博客类别列表成功'
   }
 }
-
 const $_saveCategory = async params => {
   const category = new CategoryModel({
     category: params.category
@@ -32,7 +31,6 @@ const $_saveCategory = async params => {
     msg: '博客类别保存成功'
   }
 }
-
 const $_updateCategory = async (conditions, update) => {
   let options = {new: true}
   let result = await CategoryModel.findOneAndUpdate(conditions, update, options)

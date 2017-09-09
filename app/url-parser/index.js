@@ -10,7 +10,7 @@ module.exports = (ctx) => {
   method = method.toLowerCase()
   Object.assign(reqCtx, Url.parse(url, true), {method})
   return Promise.resolve({
-    then: (resolve, reject) => {
+    then: (resolve) => {
       if (method === 'post' || method === 'put') {
         //paused ===> flow
         //中文由3个buffer传输，字符串可能乱码

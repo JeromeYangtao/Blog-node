@@ -37,5 +37,4 @@ Router.delete('/blog.action', ctx => {
   let condition = ctx.reqCtx.query
   return $_removeBlog(condition)
 })
-
 module.exports = Router
