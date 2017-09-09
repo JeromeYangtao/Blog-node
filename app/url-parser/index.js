@@ -19,7 +19,6 @@ module.exports = (ctx) => {
           data.push(chunk)
         }).on('end', () => {
           let endData = Buffer.concat(data).toString()
-          console.log(`endData:${endData}`)
           reqCtx.body = JSON.parse(endData)
           console.log(1)
           // 通知下一个流程

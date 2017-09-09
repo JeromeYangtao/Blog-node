@@ -1,7 +1,7 @@
 // 创建schema
 const {Schema} = require('mongoose')
 // 创建博客的数据存储 schema
-exports.blogSchema = new Schema({
+const blogSchema = new Schema({
   title: String,
   content: String,//html
   // rawContent: String,//markdown
@@ -14,7 +14,12 @@ exports.blogSchema = new Schema({
 })
 
 // 创建博客的数据存储 schema
-exports.categorySchema = new Schema({
+const categorySchema = new Schema({
   category: String,
-  _id: String
+  // _id: String
 })
+
+module.exports = {
+  blogSchema,
+  categorySchema
+}
