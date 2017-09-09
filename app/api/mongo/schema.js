@@ -6,17 +6,17 @@ const blogSchema = new Schema({
   content: String,//html
   // rawContent: String,//markdown
   category: String,//分类
-  // date: {
-  //   type: String, default: () => {
-  //     return new Date().toLocaleString()
-  //   }
-  // }
+  date: {
+    type: String, default: () => {
+      return new Date().toLocaleString()
+    }
+  }
 })
 
 // 创建博客的数据存储 schema
 const categorySchema = new Schema({
   category: String,
-  // _id: String
+  // _id: String //博客类比较少，可以考虑手动控制_id
 })
 
 module.exports = {
