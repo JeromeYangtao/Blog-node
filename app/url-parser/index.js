@@ -11,7 +11,7 @@ module.exports = (ctx) => {
   Object.assign(reqCtx, Url.parse(url, true), {method})
   return Promise.resolve({
     then: (resolve, reject) => {
-      if (method === 'post') {
+      if (method === 'post' || method === 'put') {
         //paused ===> flow
         //中文由3个buffer传输，字符串可能乱码
         let data = []
@@ -20,7 +20,6 @@ module.exports = (ctx) => {
         }).on('end', () => {
           let endData = Buffer.concat(data).toString()
           reqCtx.body = JSON.parse(endData)
-          console.log(1)
           // 通知下一个流程
           resolve()
         })

@@ -23,6 +23,15 @@ const $_saveBlog = async (params) => {
     msg: '博客保存成功'
   }
 }
+const $_updateBlog = async (conditions, update) => {
+  let options = {new: true}
+  let result = await BlogModel.findOneAndUpdate(conditions, update, options)
+  return {
+    status: 1,
+    data: result,
+    msg: '修改博客成功'
+  }
+}
 const $_removeBlog = async condition => {
   await  BlogModel.remove(condition)
   return {
@@ -42,5 +51,6 @@ const $_getBlogList = async query => {
 module.exports = {
   $_saveBlog,
   $_getBlogList,
+  $_updateBlog,
   $_removeBlog
 }
